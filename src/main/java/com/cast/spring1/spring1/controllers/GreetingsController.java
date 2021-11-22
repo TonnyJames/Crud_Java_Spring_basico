@@ -59,10 +59,18 @@ public class GreetingsController {
         return new ResponseEntity<List<Usuario>>(usuario, HttpStatus.OK); //retorna lista em Json
     }
 	
-	@DeleteMapping(value = "delete")
-    @ResponseBody
-    public ResponseEntity<String> delete(@RequestParam Long id){
+//	@DeleteMapping(value = "delete")
+//    @ResponseBody
+//    public ResponseEntity<String> delete(@RequestParam Long id){
+//        usuarioRepository.deleteById(id);
+//        return new ResponseEntity<String>("Usuario " + id + " deletado", HttpStatus.OK);
+//    }
+	
+	@RequestMapping(value = "usuario/deletar/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public String deletarUsuario(@PathVariable Long id) {
         usuarioRepository.deleteById(id);
-        return new ResponseEntity<String>("Usuario " + id + " deletado", HttpStatus.OK);
+
+        return "<h3>Usuario deletado. </h3>";
     }
 }
