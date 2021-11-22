@@ -1,6 +1,7 @@
 package com.cast.spring1.spring1.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,4 +74,25 @@ public class GreetingsController {
 
         return "<h3>Usuario deletado. </h3>";
     }
+	
+	@RequestMapping(value = "/usuario/buscar/{id}", method = RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
+	public ResponseEntity<Optional<Usuario>> buscarUsuario(@PathVariable Long id) {
+		Optional<Usuario> usuario = usuarioRepository.findById(id);
+		return new ResponseEntity <Optional <Usuario>> (usuario, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "usuario/updt/{id}/{nome}/{idade}", method = RequestMethod.PUT)
+	@ResponseStatus(HttpStatus.OK)
+	public String updtUser(@PathVariable String nome, @PathVariable int idade) {
+
+		Usuario usuario = new Usuario();
+		usuario.setNome(nome);
+		
+		usuario.setIdade(idade);
+		usuarioRepository.save(usuario);
+ 
+		return "Usuario atualizado";
+	}
+	
 }
